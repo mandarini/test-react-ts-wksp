@@ -1,0 +1,75 @@
+{
+  "version": 2,
+  "cli": { "defaultCollection": "@nrwl/react" },
+  "generators": {
+    "@nrwl/react": {
+      "application": { "style": "css", "linter": "eslint", "babel": true },
+      "component": { "style": "css" },
+      "library": { "style": "css", "linter": "eslint" }
+    }
+  },
+  "defaultProject": "my-ts-app",
+  "projects": {
+    "my-ts-app": {
+      "root": "apps/my-ts-app",
+      "sourceRoot": "apps/my-ts-app/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "node ../../node_modules/.bin/react-app-rewired build",
+            "cwd": "apps/my-ts-app"
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "node ../../node_modules/.bin/react-app-rewired start",
+            "cwd": "apps/my-ts-app"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "node ../../node_modules/.bin/eslint src/**/*.tsx src/**/*.ts",
+            "cwd": "apps/my-ts-app"
+          }
+        },
+        "test": {
+          "executor": "@nrwl/workspace:run-commands",
+          "outputs": [],
+          "options": {
+            "command": "node ../../node_modules/.bin/react-app-rewired test --watchAll=false",
+            "cwd": "apps/my-ts-app"
+          }
+        }
+      }
+    },
+    "my-ts-app-e2e": {
+      "root": "apps/my-ts-app-e2e",
+      "sourceRoot": "apps/my-ts-app-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/my-ts-app-e2e/cypress.json",
+            "tsConfig": "apps/my-ts-app-e2e/tsconfig.e2e.json",
+            "devServerTarget": "my-ts-app:serve"
+          },
+          "configurations": {
+            "production": { "devServerTarget": "my-ts-app:serve:production" }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": { "lintFilePatterns": ["apps/my-ts-app-e2e/**/*.{js,ts}"] }
+        }
+      }
+    }
+  }
+}
